@@ -1,0 +1,74 @@
+generated: '2026-08-05'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=serviceup
+note: >-
+  ServiceUp publishes NO client SDK for its API in any registry. The two packages
+  below are genuinely first-party — they sit in the @serviceup npm scope and are
+  maintained by ben@serviceup.com and dvanfleet@serviceup.com — but both are internal
+  engineering tooling (an ESLint plugin and a Prisma generator), not API client
+  libraries. They are recorded here for provenance; no `SDKs` pointer is wired in
+  apis.yml, because wiring one would misrepresent an ESLint plugin as an API SDK.
+packages:
+- language: javascript
+  registry: npm
+  name: '@serviceup/prisma-generator-class-validator'
+  url: https://www.npmjs.com/package/@serviceup/prisma-generator-class-validator
+  install: npm install @serviceup/prisma-generator-class-validator
+  version: 7.0.0
+  description: Prisma 2+ generator to emit typescript models of your database with class validator.
+  repository: https://github.com/ServiceUpAuto/prisma-class-validator-generator
+  official: true
+  api_client: false
+  kind: build-tooling
+  first_published: '2025-04-01'
+  last_modified: '2026-05-12'
+- language: javascript
+  registry: npm
+  name: '@serviceup/eslint-plugin-enforce-use-client'
+  url: https://www.npmjs.com/package/@serviceup/eslint-plugin-enforce-use-client
+  install: npm install @serviceup/eslint-plugin-enforce-use-client
+  version: 1.0.0
+  description: ESLint plugin to enforce 'use client' directive in Next.js React components.
+  repository: null
+  official: true
+  api_client: false
+  kind: lint-tooling
+  first_published: '2025-04-01'
+registries_checked:
+- registry: npm
+  result: 2 first-party packages found, 0 API clients
+- registry: pypi
+  result: no serviceup package (404)
+- registry: rubygems
+  result: not found
+- registry: packagist
+  result: not found
+- registry: crates.io
+  result: not found
+- registry: nuget
+  result: not found
+- registry: pkg.go.dev
+  result: not found
+- registry: maven-central
+  result: not found
+source_repositories:
+  github_org: https://github.com/ServiceUpAuto
+  public_repos: 2
+  note: >-
+    github.com/ServiceUpAuto is the real ServiceUp org (org display name "ServiceUp",
+    created 2022-08-08). Neither public repo contains an OpenAPI, AsyncAPI, .proto,
+    GraphQL SDL or MCP manifest. The unrelated github.com/SERVICEUP org (created 2016,
+    0 public repos) is NOT this company and is not recorded.
+x-evidence:
+- url: https://registry.npmjs.org/@serviceup%2Fprisma-generator-class-validator
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://registry.npmjs.org/@serviceup%2Feslint-plugin-enforce-use-client
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://api.github.com/orgs/ServiceUpAuto
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://pypi.org/pypi/serviceup/json
+  http_status: 404
+  fetched: '2026-08-05'

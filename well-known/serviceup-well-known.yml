@@ -1,0 +1,101 @@
+generated: '2026-08-05'
+method: searched
+source: live probes of every ServiceUp host
+note: >-
+  Probed the /.well-known/ surface on every ServiceUp host that resolves.
+  Three documents were found, all of them OAuth/MCP discovery metadata — ServiceUp
+  publishes no security.txt, no api-catalog, no ai-plugin.json and no A2A agent card
+  on any host. Hosts that returned 404 with an HTML body are single-page-app
+  catch-alls, recorded as misses.
+hosts:
+- host: https://api.serviceup.com
+  documents:
+  - path: /.well-known/oauth-protected-resource/mcp
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: serviceup-oauth-protected-resource-mcp.json
+    spec: RFC 9728
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://auth.serviceup.com
+  documents:
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json
+    file: serviceup-oauth-authorization-server.json
+    spec: RFC 8414
+  - path: /api/auth/jwks
+    status: 200
+    content_type: application/json
+    file: serviceup-jwks.json
+    spec: RFC 7517
+    note: Not a /.well-known/ path; the jwks_uri named by the authorization-server metadata.
+  - path: /.well-known/openid-configuration
+    status: 404
+    note: Returns a Next.js HTML 404 shell, not OIDC discovery.
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://www.serviceup.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /sitemap.xml
+    status: 200
+    note: Present but not a /.well-known/ document; not saved.
+- host: https://app.serviceup.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://trust.serviceup.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+summary:
+  documents_found: 3
+  security_txt: false
+  openid_configuration: false
+  oauth_metadata: true
+  api_catalog: false
+  agent_card: false

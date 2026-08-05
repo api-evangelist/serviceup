@@ -1,0 +1,95 @@
+generated: '2026-08-05'
+method: derived
+source: >-
+  Observed response headers and error bodies from live probes of api.serviceup.com
+  and auth.serviceup.com; ServiceUp publishes no API documentation.
+note: >-
+  Every field below is either observed on the wire or explicitly recorded as
+  "not published". Nothing is inferred from what a platform of this kind usually
+  does. In particular there is NO evidence of idempotency support, so no
+  `Idempotency` pointer is wired in apis.yml.
+authentication:
+  style: OAuth 2.1 bearer token in the Authorization header
+  scheme: Bearer
+  observed: true
+  artifact: authentication/serviceup-authentication.yml
+error_envelope:
+  observed: true
+  media_type: application/json
+  shape:
+    message: Human-readable message string
+    error: Short reason phrase
+    statusCode: Numeric HTTP status, repeated in the body
+  example_404: '{"message":"Cannot GET /openapi.json","error":"Not Found","statusCode":404}'
+  example_401: '{"error":"Missing or invalid Authorization header"}'
+  note: >-
+    Two different envelopes were observed — the framework default {message, error,
+    statusCode} on unrouted paths, and a bare {error} on the MCP auth rejection. Not
+    RFC 9457 problem+json.
+  artifact: errors/serviceup-problem-types.yml
+auth_challenge:
+  observed: true
+  header: WWW-Authenticate
+  form: >-
+    Bearer resource_metadata="https://api.serviceup.com/.well-known/oauth-protected-resource/mcp",
+    error="invalid_token", error_description="..."
+  spec: RFC 9728 / RFC 6750
+session:
+  observed: true
+  header: mcp-session-id
+  scope: MCP endpoint only
+  note: Advertised in Access-Control-Allow-Headers on the /mcp endpoint.
+cors:
+  observed: true
+  allow_origin: '*'
+  allow_methods:
+  - GET
+  - POST
+  - DELETE
+  - OPTIONS
+  allow_headers:
+  - Content-Type
+  - Authorization
+  - mcp-session-id
+tracing:
+  observed: true
+  header: x-cloud-trace-context
+  note: >-
+    Google Cloud trace header emitted by the platform, not a documented
+    client-facing request-id convention.
+idempotency:
+  supported: unknown
+  documented: false
+  evidence: >-
+    No Idempotency-Key header is advertised, no OpenAPI exists to inspect for one,
+    and no documentation describes retry semantics.
+pagination:
+  documented: false
+  evidence: No API reference published.
+versioning:
+  documented: false
+  observed: >-
+    No version segment in the MCP path (/mcp, not /v1/mcp); /v1 returns 404 on
+    api.serviceup.com.
+  artifact: lifecycle/serviceup-lifecycle.yml
+rate_limits:
+  documented: false
+  observed: No RateLimit-* or X-RateLimit-* headers seen on any anonymous response.
+field_expansion:
+  documented: false
+metadata:
+  documented: false
+x-evidence:
+- url: https://api.serviceup.com/mcp
+  http_status: 401
+  observed:
+  - www-authenticate
+  - access-control-allow-headers
+  - x-powered-by
+  - x-cloud-trace-context
+  fetched: '2026-08-05'
+- url: https://api.serviceup.com/openapi.json
+  http_status: 404
+  observed:
+  - error envelope shape
+  fetched: '2026-08-05'

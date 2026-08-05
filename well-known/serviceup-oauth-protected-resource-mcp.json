@@ -1,0 +1,1 @@
+{"resource":"https://api.serviceup.com/mcp","authorization_servers":["https://auth.serviceup.com"],"scopes_supported":["mcp:read","mcp:write"],"bearer_methods_supported":["header"]}

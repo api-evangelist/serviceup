@@ -1,0 +1,14 @@
+generated: '2026-08-05'
+method: searched
+probe: true
+source: https://trust.serviceup.com/
+url: https://trust.serviceup.com/
+certifications:
+- SOC 2
+- ISO 27001
+evidence:
+- source: https://trust.serviceup.com/
+  keywords:
+  - soc 2
+  - iso 27001
+  - trust center

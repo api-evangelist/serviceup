@@ -1,0 +1,63 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  ServiceUp's public site, sitemap.xml and live host probes. This artifact records
+  verified ABSENCE — ServiceUp publishes no operational lifecycle surface for its API.
+versioning:
+  scheme: none-published
+  current: null
+  docs: null
+  observed: >-
+    The MCP endpoint is unversioned in the path (/mcp); /v1 and /api both return 404
+    on api.serviceup.com. The OAuth authorization server exposes no version segment
+    either.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: No deprecation or sunset policy is published anywhere on serviceup.com.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  probed:
+  - host: status.serviceup.com
+    result: NXDOMAIN
+  - host: trust.serviceup.com
+    result: 200, trust center — not a status page
+  note: >-
+    No status page exists. status.serviceup.com does not resolve, and no status,
+    uptime or incident-history link appears in the site sitemap or footer.
+changelog:
+  url: null
+  note: >-
+    No dated changelog or release-notes page. Product announcements are published as
+    blog posts (e.g. /blog/product-update-ai-invoice-validation,
+    /blog/serviceup-launches-the-agentic-repair-platform-for-modern-fleets), which is
+    marketing cadence rather than a versioned change log, so no ChangeLog artifact is
+    emitted.
+roadmap:
+  url: null
+support:
+  url: https://www.serviceup.com/company/faq
+  note: FAQ pages only; no developer support channel, forum or community.
+deprecated_operations: []
+gaps:
+- No status page
+- No deprecation or sunset policy
+- No versioning policy
+- No SLA or uptime commitment published
+- No dated changelog
+x-evidence:
+- url: https://status.serviceup.com/
+  http_status: null
+  result: DNS NXDOMAIN
+  fetched: '2026-08-05'
+- url: https://www.serviceup.com/sitemap.xml
+  http_status: 200
+  result: 45 non-blog URLs, none developer, status, changelog or roadmap
+  fetched: '2026-08-05'
+- url: https://api.serviceup.com/v1
+  http_status: 404
+  fetched: '2026-08-05'
+checked: '2026-08-05'

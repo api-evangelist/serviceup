@@ -1,23 +1,101 @@
 aid: serviceup
 name: ServiceUp
-description: 'ServiceUp is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'ServiceUp is an agentic vehicle repair and maintenance platform for commercial
+  fleets, insurance carriers and repair shops, founded in 2021 and headquartered in
+  Los Gatos, California. The platform centralizes the full repair lifecycle — intake,
+  shop routing, estimate and invoice approval, repair status tracking and payment —
+  across collision, mechanical and preventative maintenance work, and layers AI Repair
+  Agents over it that run in manual, co-pilot or autopilot control modes. ServiceUp
+  integrates with existing fleet management systems, telematics providers and rental
+  management systems, and operates a live, OAuth-2.1-protected Model Context Protocol
+  (MCP) server at api.serviceup.com/mcp for agent access. The company raised a $55M
+  Series B and ranked 77th on the 2025 Inc. 5000 list.'
+image: https://cdn.prod.website-files.com/65dfc331994523c04b3fbb30/6a3c44c69acc55aa24cf9bb7_7125858b1dfb99cd458a33c165bd452b_logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/serviceup/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
 - Company
-apis: []
+- Fleet Management
+- Vehicle Repair
+- Automotive
+- Insurance
+- Maintenance
+- Agentic AI
+- Model Context Protocol
+- Transportation
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-08-05'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1
+apis:
+- name: ServiceUp MCP Server
+  description: 'Live Model Context Protocol server operated by ServiceUp at api.serviceup.com/mcp,
+    exposing the agentic repair platform to MCP clients. The endpoint is protected
+    by OAuth 2.1 (authorization code + PKCE S256) and advertises RFC 9728 protected-resource
+    metadata naming auth.serviceup.com as its authorization server and mcp:read /
+    mcp:write as its scopes. Discovered by probe — ServiceUp publishes no developer
+    documentation for it.'
+  humanURL: https://www.serviceup.com/platform/ai-agents
+  baseURL: https://api.serviceup.com/mcp
+  tags:
+  - Model Context Protocol
+  - Agentic AI
+  - Fleet Management
+  properties:
+  - type: MCPServer
+    url: mcp/serviceup-mcp.yml
+  - type: OAuthScopes
+    url: scopes/serviceup-scopes.yml
+  - type: Authentication
+    url: authentication/serviceup-authentication.yml
 common:
+- type: TrustCenter
+  url: security/serviceup-trust-center.yml
+- type: DomainSecurity
+  url: security/serviceup-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/serviceup_stock/
+  url: https://www.serviceup.com/
+- type: Login
+  url: https://app.serviceup.com/login
+- type: Blog
+  url: https://www.serviceup.com/company/blogs
+- type: Support
+  url: https://www.serviceup.com/company/faq
+- type: TermsOfService
+  url: https://www.serviceup.com/terms-and-conditions
+- type: PrivacyPolicy
+  url: https://www.serviceup.com/privacy-policy
+- type: GitHubOrganization
+  url: https://github.com/ServiceUpAuto
+- type: Compliance
+  url: https://trust.serviceup.com/
+- type: WellKnown
+  url: well-known/serviceup-well-known.yml
+- type: MCPServer
+  url: mcp/serviceup-mcp.yml
+- type: OAuthScopes
+  url: scopes/serviceup-scopes.yml
+- type: Authentication
+  url: authentication/serviceup-authentication.yml
+- type: Packages
+  url: packages/serviceup-packages.yml
+- type: Conformance
+  url: conformance/serviceup-conformance.yml
+- type: Conventions
+  url: conventions/serviceup-conventions.yml
+- type: ErrorCatalog
+  url: errors/serviceup-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/serviceup-lifecycle.yml
+- type: LLMsTxt
+  url: llms/serviceup-llms.txt

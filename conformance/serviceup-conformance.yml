@@ -1,0 +1,103 @@
+generated: '2026-08-05'
+method: searched
+source: >-
+  ServiceUp's own OAuth discovery metadata, the MCP endpoint's WWW-Authenticate
+  challenge, and trust.serviceup.com
+note: >-
+  There is no OpenAPI to derive from. Every assertion below is anchored to a document
+  ServiceUp actually serves, or recorded as false where the probe missed.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    RFC 6749 authorization-code flow advertised at
+    https://auth.serviceup.com/.well-known/oauth-authorization-server
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: 200 JSON at https://auth.serviceup.com/.well-known/oauth-authorization-server
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: >-
+    200 JSON at https://api.serviceup.com/.well-known/oauth-protected-resource/mcp,
+    and the MCP 401 returns a WWW-Authenticate Bearer challenge carrying
+    resource_metadata= as RFC 9728 requires
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported = [S256]
+- id: rfc6750-bearer-token
+  conforms: true
+  evidence: bearer_methods_supported = [header]
+- id: rfc7517-jwks
+  conforms: true
+  evidence: 200 JWKS at https://auth.serviceup.com/api/auth/jwks (EdDSA / Ed25519)
+- id: oauth2.1
+  conforms: true
+  evidence: >-
+    Authorization code + PKCE only, no implicit or password grant advertised, refresh
+    tokens supported — the OAuth 2.1 profile
+- id: mcp
+  conforms: true
+  evidence: >-
+    Live MCP endpoint at https://api.serviceup.com/mcp accepting GET/POST/DELETE with
+    an mcp-session-id header (streamable HTTP transport); tools/list is auth-gated so
+    protocol version could not be observed
+- id: rfc7591-dynamic-client-registration
+  conforms: false
+  evidence: No registration_endpoint advertised; /api/auth/oauth2/register returns 404
+- id: openid-connect
+  conforms: false
+  evidence: >-
+    No /.well-known/openid-configuration on any host; auth.serviceup.com serves a
+    Next.js HTML 404 for it. Plain OAuth, not OIDC.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI or Swagger document found on any host — /openapi.json, /openapi.yaml,
+    /swagger.json, /swagger/v1/swagger.json, /v1/openapi.json, /api-docs, /docs and
+    /redoc all return 404 on api.serviceup.com
+- id: graphql
+  conforms: false
+  evidence: /graphql returns 404 on api.serviceup.com
+- id: asyncapi
+  conforms: false
+  evidence: No event, streaming or webhook surface published
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use a NestJS-style {message, error, statusCode} envelope with
+    application/json, not application/problem+json
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on all five ServiceUp hosts
+- id: a2a
+  conforms: false
+  evidence: >-
+    No agent card at /.well-known/agent-card.json or /.well-known/agent.json on any
+    ServiceUp host
+- id: llms-txt
+  conforms: false
+  evidence: /llms.txt returns 404 on all ServiceUp hosts
+compliance_programs:
+- id: soc2-type-2
+  published: true
+  source: https://trust.serviceup.com/
+- id: iso-27001
+  published: true
+  source: https://trust.serviceup.com/
+  note: >-
+    Named on the trust center as an assessment criterion applied to third-party data
+    center providers; not stated there as a ServiceUp certification.
+x-evidence:
+- url: https://auth.serviceup.com/.well-known/oauth-authorization-server
+  http_status: 200
+- url: https://api.serviceup.com/.well-known/oauth-protected-resource/mcp
+  http_status: 200
+- url: https://api.serviceup.com/mcp
+  http_status: 401
+- url: https://api.serviceup.com/openapi.json
+  http_status: 404
+- url: https://api.serviceup.com/graphql
+  http_status: 404
+- url: https://trust.serviceup.com/
+  http_status: 200
+checked: '2026-08-05'

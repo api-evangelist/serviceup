@@ -1,0 +1,61 @@
+generated: '2026-08-05'
+method: derived
+source: >-
+  Live anonymous probes of api.serviceup.com and auth.serviceup.com. No OpenAPI and
+  no published error reference exist to derive from — these are the error responses
+  actually returned on the wire.
+format: json
+rfc9457: false
+envelopes:
+- name: framework-default
+  media_type: application/json; charset=utf-8
+  fields:
+  - message
+  - error
+  - statusCode
+- name: mcp-auth
+  media_type: application/json
+  fields:
+  - error
+problems:
+- status: 404
+  envelope: framework-default
+  error: Not Found
+  title: Route not found
+  observed_body: '{"message":"Cannot GET /openapi.json","error":"Not Found","statusCode":404}'
+  observed_at: https://api.serviceup.com/openapi.json
+  remediation: >-
+    The path is not routed on this host. api.serviceup.com routes only /mcp and
+    /.well-known/oauth-protected-resource/mcp anonymously; every other probed path
+    returns this envelope.
+- status: 401
+  envelope: mcp-auth
+  error: Missing or invalid Authorization header
+  title: Unauthenticated MCP request
+  observed_body: '{"error":"Missing or invalid Authorization header"}'
+  observed_at: https://api.serviceup.com/mcp
+  www_authenticate: >-
+    Bearer resource_metadata="https://api.serviceup.com/.well-known/oauth-protected-resource/mcp",
+    error="invalid_token", error_description="Missing or invalid Authorization header"
+  remediation: >-
+    Obtain an access token from https://auth.serviceup.com via the authorization-code
+    + PKCE flow with the mcp:read and/or mcp:write scope, and present it as
+    `Authorization: Bearer <token>`. Follow the resource_metadata URL in the challenge
+    to discover the authorization server (RFC 9728).
+coverage:
+  note: >-
+    Only anonymously reachable errors could be catalogued. Authenticated error
+    semantics — JSON-RPC error codes returned by the MCP server itself, validation
+    errors, rate-limit responses — require a ServiceUp-issued token and are not
+    recorded here rather than guessed.
+  authenticated_errors_captured: false
+x-evidence:
+- url: https://api.serviceup.com/openapi.json
+  http_status: 404
+  fetched: '2026-08-05'
+- url: https://api.serviceup.com/mcp
+  http_status: 401
+  fetched: '2026-08-05'
+- url: https://auth.serviceup.com/api/auth/oauth2/register
+  http_status: 404
+  fetched: '2026-08-05'
