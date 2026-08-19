@@ -3,12 +3,10 @@ method: searched
 source: https://api.serviceup.com/mcp
 status: published
 discovery:
-  how: >-
-    Found by direct probe of the API host root. ServiceUp does not document this
-    endpoint anywhere on its public site, does not list it in the Model Context
-    Protocol registry, and returns HTTP 404 for every other path probed on
-    api.serviceup.com. The 401 (rather than 404) at /mcp, together with a
-    conformant RFC 9728 WWW-Authenticate challenge, is what confirms it.
+  how: Found by direct probe of the API host root. ServiceUp does not document this endpoint anywhere
+    on its public site, does not list it in the Model Context Protocol registry, and returns HTTP 404
+    for every other path probed on api.serviceup.com. The 401 (rather than 404) at /mcp, together with
+    a conformant RFC 9728 WWW-Authenticate challenge, is what confirms it.
   registry_listed: false
   documented_publicly: false
 server:
@@ -37,20 +35,17 @@ authentication:
   scopes:
   - mcp:read
   - mcp:write
-  challenge: >-
-    WWW-Authenticate: Bearer resource_metadata="https://api.serviceup.com/.well-known/oauth-protected-resource/mcp",
-    error="invalid_token", error_description="Missing or invalid Authorization header"
+  challenge: 'WWW-Authenticate: Bearer resource_metadata="https://api.serviceup.com/.well-known/oauth-protected-resource/mcp",
+    error="invalid_token", error_description="Missing or invalid Authorization header"'
   profile: authentication/serviceup-authentication.yml
   scopes_artifact: scopes/serviceup-scopes.yml
 tools: []
 tools_status: gated
-tools_note: >-
-  tools/list is OAuth-gated — an anonymous JSON-RPC tools/list POST returns HTTP 401
-  with {"error":"Missing or invalid Authorization header"}. The real tool set and its
-  inputSchemas require an authenticated introspection with an mcp:read token, which
-  ServiceUp issues only to its own customers (no dynamic client registration endpoint
-  is advertised). No tool list is recorded here because none could be observed, and
-  ServiceUp publishes no llms.txt or docs page naming its tools. NOTHING IS INFERRED.
+tools_note: tools/list is OAuth-gated — an anonymous JSON-RPC tools/list POST returns HTTP 401 with {"error":"Missing
+  or invalid Authorization header"}. The real tool set and its inputSchemas require an authenticated introspection
+  with an mcp:read token, which ServiceUp issues only to its own customers (no dynamic client registration
+  endpoint is advertised). No tool list is recorded here because none could be observed, and ServiceUp
+  publishes no llms.txt or docs page naming its tools. NOTHING IS INFERRED.
 infrastructure:
   server_header: Google Frontend
   framework_fingerprint: Express (x-powered-by), NestJS-shaped error envelope
@@ -76,3 +71,10 @@ x-evidence:
   http_status: 200
   result: 'servers: [], count: 0'
   fetched: '2026-08-05'
+deployment:
+  mode: remote
+  endpoint: https://api.serviceup.com/mcp
+  verified: probed
+  probe: gated
+  checked: '2026-08-12'
+  source: catalog MCP census
