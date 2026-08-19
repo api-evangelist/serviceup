@@ -14,7 +14,7 @@ image: https://cdn.prod.website-files.com/65dfc331994523c04b3fbb30/6a3c44c69acc5
 url: https://raw.githubusercontent.com/api-evangelist/serviceup/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
