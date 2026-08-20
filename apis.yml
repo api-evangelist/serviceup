@@ -25,6 +25,16 @@ tags:
 - Insurance
 - Maintenance
 - Agentic AI
+- MCP
+- Transportation
+tags_raw:
+- Company
+- Fleet Management
+- Vehicle Repair
+- Automotive
+- Insurance
+- Maintenance
+- Agentic AI
 - Model Context Protocol
 - Transportation
 maintainers:
@@ -48,6 +58,10 @@ apis:
   humanURL: https://www.serviceup.com/platform/ai-agents
   baseURL: https://api.serviceup.com/mcp
   tags:
+  - MCP
+  - Agentic AI
+  - Fleet Management
+  tags_raw:
   - Model Context Protocol
   - Agentic AI
   - Fleet Management
