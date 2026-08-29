@@ -10,6 +10,17 @@ description: 'ServiceUp is an agentic vehicle repair and maintenance platform fo
   management systems, and operates a live, OAuth-2.1-protected Model Context Protocol
   (MCP) server at api.serviceup.com/mcp for agent access. The company raised a $55M
   Series B and ranked 77th on the 2025 Inc. 5000 list.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/65dfc331994523c04b3fbb30/6a3c44c69acc55aa24cf9bb7_7125858b1dfb99cd458a33c165bd452b_logo.svg
 url: https://raw.githubusercontent.com/api-evangelist/serviceup/refs/heads/main/apis.yml
 x-type: company
