@@ -49,7 +49,7 @@ tags:
 - Automotive
 - Insurance
 - Maintenance
-- Agentic AI
+- AI Agents
 - MCP
 - Transportation
 tags_raw:
@@ -84,7 +84,7 @@ apis:
   baseURL: https://api.serviceup.com/mcp
   tags:
   - MCP
-  - Agentic AI
+  - AI Agents
   - Fleet Management
   tags_raw:
   - Model Context Protocol
